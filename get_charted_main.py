@@ -41,16 +41,15 @@ class Get_Charted():
 
 			self.days_diff_list = []
 			
-			strftime_control = "%A, %#d %B %Y"
 
-			self.days_diff_list.append(self.begin_date.strftime(strftime_control))
 
 			# Append all the days between start day and end day to a list. 
 			var1 = self.begin_date
-			for nums in range(self.days_diff):
-				usevar = var1 - self.one_day_delta
-				self.days_diff_list.append(usevar.strftime(strftime_control))
-				var1 = usevar
+			control_string = "{dt:%A}, {dt.day} {dt:%B} {dt.year}"
+
+			for nums in range(self.days_diff+1):
+				self.days_diff_list.append(control_string.format(dt=var1))
+				var1 = var1 - self.one_day_delta
 
 		except IndexError:
 			print("Datetime failed. Did you supply dates properly?")
